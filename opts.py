@@ -31,7 +31,7 @@ def myargparser():
     parser.add_argument('--weightDecay', default=0, type=float, help='weight decay (Default: 1e-4)')
 
     #extra model stuff
-    parser.add_argument('--model_def', default='gazenet', help='Architectures to be loaded')
+    parser.add_argument('--model_def', default='tracknet', help='Architectures to be loaded')
     parser.add_argument('--inpsize', default=227, type=int, help='Input size')
     parser.add_argument('--weight_init', action='store_false', help='Turns off weight inits')
     #default
@@ -41,6 +41,7 @@ def myargparser():
     parser.add_argument('--start-epoch', default=0, type=int,help='manual epoch number (useful on restarts)')
     parser.add_argument('--pretrained', dest='pretrained', action='store_true', help='use pre-trained model')
     parser.add_argument('--pretrained_file', default="")
+    parser.add_argument('--tosave', default=False)
 
     #model stuff
     parser.add_argument('--resume', default='', type=str,

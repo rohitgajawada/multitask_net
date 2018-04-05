@@ -3,7 +3,6 @@ import torch.nn as nn
 import torch.optim as optim
 import utils
 import os
-import models.gazenet as gazenet
 
 def setup(model, opt):
 
@@ -43,14 +42,3 @@ def resumer(opt, model, optimizer):
         print("=> loaded checkpoint '{}' (epoch {})".format(opt.resume, checkpoint['epoch']))
 
         return model, optimizer, opt, best_prec1
-
-
-def load_model(opt):
-    if opt.pretrained_file != "":
-        model = torch.load(opt.pretrained_file)
-    else:
-        if opt.model_def == 'gazenet':
-            model = gazenet.Net(opt)
-            if opt.cuda:
-                model = model.cuda()
-    return model

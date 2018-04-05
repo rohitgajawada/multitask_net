@@ -1,10 +1,9 @@
 from __future__ import print_function, division
 import os
 import torch
-from skimage import io, transform
+from skimage import io
 import numpy as np
 import matplotlib.pyplot as plt
-import math
 from torch.utils.data import Dataset
 from torchvision import transforms
 

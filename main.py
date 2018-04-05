@@ -5,6 +5,7 @@ import train
 import utils
 import models.__init__ as init
 import getdata as ld
+import models.tracknet as tracknet
 
 parser = opts.myargparser()
 
@@ -13,9 +14,11 @@ def main():
     opt = parser.parse_args()
     best_err1 = 1000000
     print(opt)
+    model = tracknet.Net(opt)
+    if opt.cuda:
+        model = model.cuda()
 
-    model = init.load_model(opt)
-    model, criterion, optimizer = init.setup(model,opt)
+    model, criterion, optimizer = init.setup(model, opt)
     print(model)
 
     trainer = train.Trainer(model, criterion, optimizer, opt)
@@ -37,11 +40,9 @@ def main():
 
         # err = validator.validate(val_loader, epoch, opt)
         # best_err1 = min(err, best_err1)
+        # print('Best error: [{0:.3f}]\t'.format(best_err1))
         if epoch % 3 == 0 and epoch > 0 and opt.tosave == True:
             init.save_checkpoint(opt, model, optimizer, best_err1, epoch)
-
-        # print('Best error: [{0:.3f}]\t'.format(best_err1))
-
 
 if __name__ == '__main__':
     main()
