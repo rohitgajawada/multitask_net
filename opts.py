@@ -32,7 +32,7 @@ def myargparser():
 
     #extra model stuff
     parser.add_argument('--model_def', default='tracknet', help='Architectures to be loaded')
-    parser.add_argument('--inpsize', default=227, type=int, help='Input size')
+    parser.add_argument('--img_size', default=(224, 224), type=int, help='Input size')
     parser.add_argument('--weight_init', action='store_false', help='Turns off weight inits')
     #default
     parser.add_argument('--cachemode', default=True, help='if cachemode')

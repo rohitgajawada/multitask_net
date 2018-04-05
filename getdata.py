@@ -8,12 +8,13 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 
 class SynthDataset(Dataset):
-    def __init__(self, data_dir, type):
+    def __init__(self, data_dir, type, img_size):
         self.image_dir = os.path.join(data_dir, "football_imgs")
         self.anno_path = os.path.join(data_dir, "annotations.txt")
         f = open(self.anno_path, "r")
         self.coords_anno = f.readlines()
         self.image_paths = os.listdir(self.image_dir)
+        self.img_size = img_size
 
     def __len__(self):
         return len(self.image_paths)
@@ -24,7 +25,8 @@ class SynthDataset(Dataset):
         img = img.transpose((2, 0, 1))
         img = torch.from_numpy(img / 255.0).contiguous()
         normtransform = transforms.Compose([
-				transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+				transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+                transforms.Resize(self.img_size)
 			])
 
         img = normtransform(img)
@@ -40,7 +42,7 @@ class SynthDataset(Dataset):
 
 class GazeFollow():
     def __init__(self, opt):
-        self.train_data = SynthDataset(opt.data_dir, 'train')
+        self.train_data = SynthDataset(opt.data_dir, 'train', opt.img_size)
         self.train_loader = torch.utils.data.DataLoader(self.train_gaze, batch_size=opt.batch_size, shuffle=True, num_workers=opt.workers)
         # self.val_data = SynthDataset(opt.data_dir, 'test')
         # self.val_loader = torch.utils.data.DataLoader(self.val_gaze,
