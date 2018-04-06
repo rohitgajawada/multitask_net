@@ -1,7 +1,8 @@
 Multitask Tracking
 
 TODO:
-1) Try training network
+1) Scale coordinates to corresponding value after resize
+2) Try training network
 
 Possible modifications:
 1) regress offsets, not coordinates

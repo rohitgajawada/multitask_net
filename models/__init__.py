@@ -8,6 +8,8 @@ def setup(model, opt):
 
     if opt.criterion == "mse":
         criterion = nn.MSELoss().cuda()
+    elif opt.criterion == "l1":
+        criterion = nn.L1Loss().cuda()
     elif opt.criterion == "crossentropy":
         criterion = nn.CrossEntropyLoss().cuda()
 

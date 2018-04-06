@@ -47,11 +47,16 @@ def get_mean_and_std(dataloader):
     std = torch.zeros(3)
     len_dataset = 0
     print('==> Computing mean and std..')
-    for inputs, targets in dataloader:
+    for inputs, previnp, anno, targets in dataloader:
         len_dataset += 1
+        print(len_dataset)
+        print(inputs[0])
         for i in range(len(inputs[0])):
             mean[i] += inputs[:,i,:,:].mean()
+            print(mean[i])
             std[i] += inputs[:,i,:,:].std()
+        if len_dataset > 30:
+            break
     mean.div_(len_dataset)
     std.div_(len_dataset)
     return mean, std

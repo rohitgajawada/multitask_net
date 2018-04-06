@@ -11,15 +11,15 @@ def myargparser():
     parser.add_argument('--workers', default=6, type=int, help='number of data loading workers (default: 4)')
     #default stuff
     parser.add_argument('--epochs', default=200, type=int, help='number of total epochs to run')
-    parser.add_argument('--batch-size', default=32, type=int, help='mini-batch size (default: 128)')
+    parser.add_argument('--batch-size', default=1, type=int, help='mini-batch size (default: 128)')
     parser.add_argument('--testbatchsize', default=128, type=int, help='input batch size for testing (default: 1000)')
-    parser.add_argument('--printfreq', default=50, type=int, help='print frequency (default: 10)')
+    parser.add_argument('--printfreq', default=1, type=int, help='print frequency (default: 10)')
     parser.add_argument('--learningratescheduler', default='decayschedular', type=str, help='if lr rate scheduler should be used')
 
     #optimizer/criterion stuff
     parser.add_argument('--decayinterval', default=10, type=int, help='decays by a power of decay_var in these epochs')
     parser.add_argument('--decaylevel', default=1.15, type=int, help='decays by a power of decaylevel')
-    parser.add_argument('--criterion', default='mse', help='Criterion')
+    parser.add_argument('--criterion', default='l1', help='Criterion')
     parser.add_argument('--optimType', default='adam', choices=optim_choices, type=str, help='Optimizers. Options:'+str(optim_choices))
 
     parser.add_argument('--maxlr', default=0.001, type=float, help='initial learning rate')
@@ -33,7 +33,6 @@ def myargparser():
     #extra model stuff
     parser.add_argument('--model_def', default='tracknet', help='Architectures to be loaded')
     parser.add_argument('--img_size', default=(3, 224, 224), type=int, help='Input size')
-    parser.add_argument('--weight_init', action='store_false', help='Turns off weight inits')
     #default
     parser.add_argument('--cachemode', default=True, help='if cachemode')
     parser.add_argument('--cuda',  default=True, help='if cuda is available')
