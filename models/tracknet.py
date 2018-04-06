@@ -18,6 +18,7 @@ class Net(nn.Module):
                 nn.Linear(4096, 4096),
                 nn.ReLU(inplace=True),
                 nn.Linear(4096, 42),
+                nn.Softmax()
                 )
 
     def forward(self, x, xprev):
@@ -30,8 +31,8 @@ class Net(nn.Module):
         x = self.classifier(x)
         return x
 
-x = Variable(torch.randn(1, 3, 224, 224))
-xprev = Variable(torch.randn(1, 3, 224, 224))
-net = Net()
-out = net(x, xprev)
-print(out.size())
+# x = Variable(torch.randn(1, 3, 224, 224))
+# xprev = Variable(torch.randn(1, 3, 224, 224))
+# net = Net()
+# out = net(x, xprev)
+# print(out.size())

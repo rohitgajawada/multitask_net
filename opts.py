@@ -19,7 +19,7 @@ def myargparser():
     #optimizer/criterion stuff
     parser.add_argument('--decayinterval', default=10, type=int, help='decays by a power of decay_var in these epochs')
     parser.add_argument('--decaylevel', default=1.15, type=int, help='decays by a power of decaylevel')
-    parser.add_argument('--criterion', default='crossentropy', help='Criterion')
+    parser.add_argument('--criterion', default='mse', help='Criterion')
     parser.add_argument('--optimType', default='adam', choices=optim_choices, type=str, help='Optimizers. Options:'+str(optim_choices))
 
     parser.add_argument('--maxlr', default=0.001, type=float, help='initial learning rate')
@@ -32,7 +32,7 @@ def myargparser():
 
     #extra model stuff
     parser.add_argument('--model_def', default='tracknet', help='Architectures to be loaded')
-    parser.add_argument('--img_size', default=(224, 224), type=int, help='Input size')
+    parser.add_argument('--img_size', default=(3, 224, 224), type=int, help='Input size')
     parser.add_argument('--weight_init', action='store_false', help='Turns off weight inits')
     #default
     parser.add_argument('--cachemode', default=True, help='if cachemode')

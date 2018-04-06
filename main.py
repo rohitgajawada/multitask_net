@@ -30,7 +30,7 @@ def main():
             print("=> no checkpoint found at '{}'".format(opt.resume))
 
     cudnn.benchmark = True
-    dataloader = ld.GazeFollow(opt)
+    dataloader = ld.SynthLoader(opt)
     train_loader = dataloader.train_loader
 
     for epoch in range(opt.start_epoch, opt.epochs):

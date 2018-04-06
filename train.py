@@ -24,15 +24,17 @@ class Trainer():
         for i, data in enumerate(trainloader, 0):
             self.optimizer.zero_grad()
             if opt.cuda:
-                imgs, annos, names = data
+                imgs_prev, imgs, annos_prev, annos = data
+                imgs_prev = imgs_prev.cuda(async=True)
                 imgs = imgs.cuda(async=True)
+                annos_prev = annos_prev.cuda(async=True)
                 annos = annos.cuda(async=True)
 
-            imgs, annos = Variable(imgs), Variable(annos)
+            imgs_prev, imgs, annos_prev, annos = Variable(imgs_prev), Variable(imgs), Variable(annos_prev), Variable(annos)
 
             self.data_time.update(time.time() - end)
 
-            outputs = self.model(imgs, annos)
+            outputs = self.model(imgs, imgs_prev)
             loss = self.criterion(outputs, annos)
             loss.backward()
             self.optimizer.step()
