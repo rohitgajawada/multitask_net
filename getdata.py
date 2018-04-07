@@ -10,12 +10,12 @@ from torchvision import transforms
 class SynthDataset(Dataset):
     def __init__(self, data_dir, type, img_size):
         self.image_dir = os.path.join(data_dir, "football_imgs")
-        self.anno_path = os.path.join(data_dir, "annotations.txt")
+        self.anno_path = os.path.join(data_dir, "annotation.txt")
         f = open(self.anno_path, "r")
         self.coords_anno = f.readlines()
         self.image_paths = os.listdir(self.image_dir)
         self.img_size = img_size
-        
+
     def __len__(self):
         return len(self.image_paths) - 1 #to ensure the dataset has n-1 pairs
 
@@ -29,7 +29,7 @@ class SynthDataset(Dataset):
         img_prev = io.imread(img_name_prev)
         oldht, oldwid, chans = img_prev.shape
 
-        scale = [224/ (1.0 * oldwid), 224 / (1.0 * oldht), 1]
+        # scale = [1.0, 1.0]
 
         img_prev = img_prev.transpose((2, 0, 1))
         img_prev = transform.resize(img_prev, self.img_size)
@@ -48,24 +48,24 @@ class SynthDataset(Dataset):
         anno_prev = self.coords_anno[idx]
         anno_prev = anno_prev.split(';')
         for i in range(14):
-            a = [float(z) for z in anno_prev[i].split(',')[1:]]
-            l = [a[i] * scale[i] for i in range(3)]
+            l = [float(z) for z in anno_prev[i].split(',')[1:]]
+            # l = [a[i] * scale[i] for i in range(3)]
             players_anno_prev.append(l)
             names_prev.append(anno_prev[i].split(',')[0])
         players_anno_prev = [j for i in players_anno_prev for j in i]
-        players_anno_prev = torch.FloatTensor(players_anno_prev)
+        players_anno_prev = torch.FloatTensor(players_anno_prev) / 224.0
 
         players_anno = []
         names = []
         anno = self.coords_anno[idx + 1]
         anno = anno.split(';')
         for i in range(14):
-            aa = [float(z) for z in anno[i].split(',')[1:]]
-            ll = [aa[i] * scale[i] for i in range(3)]
+            ll = [float(z) for z in anno[i].split(',')[1:]]
+            # ll = [aa[i] * scale[i] for i in range(3)]
             players_anno.append(ll)
             names.append(anno[i].split(',')[0])
         players_anno = [j for i in players_anno for j in i]
-        players_anno = torch.FloatTensor(players_anno)
+        players_anno = torch.FloatTensor(players_anno) / 224.0
 
         sample = [img_prev.float(), img.float(), players_anno_prev, players_anno]
         return sample

@@ -17,7 +17,7 @@ class Net(nn.Module):
                 nn.ReLU(inplace=True),
                 nn.Linear(4096, 4096),
                 nn.ReLU(inplace=True),
-                nn.Linear(4096, 42),
+                nn.Linear(4096, 28),
                 nn.Softmax()
                 )
 

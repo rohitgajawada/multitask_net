@@ -1,6 +1,7 @@
 from torch.autograd import Variable
 from utils import AverageMeter
 from copy import deepcopy
+import sys
 import time
 import models.__init__ as init
 import utils
@@ -38,6 +39,7 @@ class Trainer():
             loss = self.criterion(outputs, annos)
             loss.backward()
             self.optimizer.step()
+            # print(list(self.model.parameters())[4].grad.data[0][0])
 
             inputs_size = imgs.size(0)
             self.losses.update(loss.data[0], inputs_size)
@@ -53,6 +55,8 @@ class Trainer():
                       'Loss {loss.avg:.3f}\t'.format(
                        epoch, i, len(trainloader), batch_time=self.batch_time,
                        data_time= self.data_time, loss=self.losses))
+
+            sys.stdout.flush()
 
         print('Train: [{0}]\t'
               'Time {batch_time.sum:.3f}\t'
