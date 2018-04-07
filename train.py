@@ -30,7 +30,7 @@ class Trainer():
                 annos_prev = annos_prev.cuda(async=True)
                 annos = annos.cuda(async=True)
 
-            imgs_prev, imgs, annos_prev, annos = Variable(imgs_prev), Variable(imgs), Variable(annos_prev), Variable(annos)
+            imgs_prev, imgs, annos_prev, annos = Variable(imgs_prev), Variable(imgs), Variable(annos_prev, requires_grad=False), Variable(annos, requires_grad=False)
 
             self.data_time.update(time.time() - end)
 

@@ -7,11 +7,9 @@ import os
 def setup(model, opt):
 
     if opt.criterion == "mse":
-        criterion = nn.MSELoss().cuda()
+        criterion = nn.MSELoss(size_average = False).cuda()
     elif opt.criterion == "l1":
-        criterion = nn.L1Loss().cuda()
-    elif opt.criterion == "crossentropy":
-        criterion = nn.CrossEntropyLoss().cuda()
+        criterion = nn.L1Loss(size_average = False).cuda()
 
     if opt.optimType == 'sgd':
         optimizer = optim.SGD(model.parameters(), lr = opt.lr, momentum = opt.momentum, nesterov = opt.nesterov, weight_decay = opt.weightDecay)
