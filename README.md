@@ -1,13 +1,13 @@
 Multitask Tracking
 
 TODO:
-1) Scale coordinates to corresponding value after resize
-2) Try training network
+1) Make coordinates according to 224 x 224 instead of -4 to 4
+2) Visualize coordinates on the image
+3) Make gaussian attention maps using previous frame
 
 Possible modifications:
 1) regress offsets, not coordinates
 
 To keep in mind and other ideas:
-1) attention based on previous frame in the form of gaussians
-2) occlusion network
-3) motion network
+1) occlusion network
+2) motion network
